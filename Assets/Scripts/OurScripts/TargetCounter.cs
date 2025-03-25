@@ -16,12 +16,12 @@ public class TargetCounter : MonoBehaviour
 
     void Start()
     {
-        counterText.text = currentTargets.ToString();
+        counterText.text = "\n" + currentTargets.ToString();
     }
     
     public void AddTargetHit()
     {
         currentTargets++;
-        counterText.text = currentTargets.ToString();
+        counterText.text = "\n" + currentTargets.ToString();
     }
 }
