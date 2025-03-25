@@ -66,6 +66,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   tip: {fileID: 1769337598482281036}
+  _rigidBody: {fileID: 2340199376400172529}
 --- !u!136 &8315132907867359330
 CapsuleCollider:
   m_ObjectHideFlags: 0

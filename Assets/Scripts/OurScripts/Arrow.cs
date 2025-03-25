@@ -6,13 +6,12 @@ public class Arrow : MonoBehaviour
     public float speed = 10f;
     public Transform tip;
 
-    private Rigidbody _rigidBody;
+    [SerializeField] private Rigidbody _rigidBody;
     private bool _inAir = false;
     private Vector3 _lastPosition = Vector3.zero;
 
     private void Awake()
     {
-        _rigidBody = GetComponent<Rigidbody>();
         PullBow.PullActionReleased += Release;
 
         Stop();
@@ -52,7 +51,7 @@ public class Arrow : MonoBehaviour
     {
         if (_inAir)
         {
-            CheckCollison();
+            //CheckCollison();
             _lastPosition = tip.position;
         }
     }
@@ -69,7 +68,7 @@ public class Arrow : MonoBehaviour
                     transform.parent = hitInfo.transform;
                     body.AddForce(_rigidBody.velocity, ForceMode.Impulse);
                 }
-                }
+            }
             Stop();
             
         }
