@@ -11,6 +11,9 @@ public class ArrowSpawner : MonoBehaviour
     private bool _arrowNotched = false;
     private GameObject _currentArrow = null;
 
+    [SerializeField] private GameObject _ricochetArrow;
+    [SerializeField] private GameObject _homingArrow;
+    
     private void Start()
     {
         _bow = GetComponent<XRGrabInteractable>();
@@ -46,7 +49,14 @@ public class ArrowSpawner : MonoBehaviour
     IEnumerator DelayedSpawn()
     {
         yield return new WaitForSeconds(1f);
-        _currentArrow = Instantiate(arrow, notch.transform);
+        GameObject selectedArrow = SelectRandomArrow();
+        _currentArrow = Instantiate(selectedArrow, notch.transform);
+    }
+    
+    private GameObject SelectRandomArrow()
+    {
+        GameObject[] arrows = { arrow, _homingArrow, _ricochetArrow };
+        return arrows[Random.Range(0, arrows.Length)];
     }
 }
 
