@@ -31,6 +31,9 @@ public class Arrow : MonoBehaviour
         SetPhysics(true);
 
         Vector3 force = transform.forward * value * speed;
+        _rigidBody.velocity = force; // Ensure velocity is applied
+        _rigidBody.angularVelocity = Vector3.zero; // Reset unwanted rotation
+
         StartCoroutine(RotateWithVelocity());
 
         _lastPosition = tip.position;
@@ -51,9 +54,11 @@ public class Arrow : MonoBehaviour
     {
         if (_inAir)
         {
-            //CheckCollison();
+            CheckCollison();
             _lastPosition = tip.position;
+            Debug.Log("Should be flying");
         }
+        else { Debug.Log("Not IN Air"); }
     }
 
     private void CheckCollison()

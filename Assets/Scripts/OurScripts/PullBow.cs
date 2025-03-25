@@ -24,13 +24,13 @@ public class PullBow : XRBaseInteractable
 
     public void SetPullInteractor(SelectEnterEventArgs args)
     {
-        Debug.Log("SetPullInteractor");
+        //Debug.Log("SetPullInteractor");
         pullingInteractor = args.interactorObject;
     }
 
     public void Release()
     {
-        Debug.Log("Release");
+      //  Debug.Log("Release");
         PullActionReleased?.Invoke(pullAmount);
         pullingInteractor = null;
         pullAmount = 0.0f;
@@ -40,7 +40,7 @@ public class PullBow : XRBaseInteractable
 
     public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase)
     {
-        Debug.Log("ProcessInteractable");
+       // Debug.Log("ProcessInteractable");
         base.ProcessInteractable(updatePhase);
         if (updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic)
         {
@@ -56,7 +56,7 @@ public class PullBow : XRBaseInteractable
 
     private float CalculatePull(Vector3 pullPosition)
     {
-        Debug.Log("CalculatePull");
+       // Debug.Log("CalculatePull");
         Vector3 pullDirection = pullPosition - Start.position;
         Vector3 targetDirection = End.position - Start.position;
         float maxLength = targetDirection.magnitude;
@@ -69,7 +69,7 @@ public class PullBow : XRBaseInteractable
 
     private void UpdateString()
     {
-        Debug.Log("UpdateString");
+       // Debug.Log("UpdateString");
         Vector3 linePosition = Vector3.forward * Mathf.Lerp(Start.transform.localPosition.z, End.transform.localPosition.z, pullAmount);
         notch.transform.localPosition = new Vector3(notch.transform.localPosition.x, notch.transform.localPosition.y, linePosition.z + 0.2f);
         _lineRenderer.SetPosition(1, linePosition);
