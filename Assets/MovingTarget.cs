@@ -6,20 +6,15 @@ public class MovingTarget : MonoBehaviour
 {
     [SerializeField] Transform pointA;
     [SerializeField] Transform pointB;
+    [SerializeField] float _speed = 2f;
 
-    [SerializeField] float _speed;
+    private bool movingToA = false;
 
-    public bool movingToA;
     void Update()
     {
-        if (movingToA)
-        {
-            transform.Translate(pointA.position * Time.deltaTime * _speed);
-        }
-        if (!movingToA)
-        {
-            transform.Translate(pointB.position * Time.deltaTime * _speed);
-        }
+        // Move toward the target point
+        Transform target = movingToA ? pointA : pointB;
+        transform.position = Vector3.MoveTowards(transform.position, target.position, _speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -34,3 +29,4 @@ public class MovingTarget : MonoBehaviour
         }
     }
 }
+
