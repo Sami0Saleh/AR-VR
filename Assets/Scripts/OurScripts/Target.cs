@@ -7,6 +7,7 @@ public class Target : MonoBehaviour
         if (other.CompareTag("Arrow"))
         {
             Destroy(gameObject);
+            TargetCounter.instance.AddTargetHit();
         }
     }
 }

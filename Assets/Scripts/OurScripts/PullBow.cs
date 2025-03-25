@@ -14,13 +14,12 @@ public class PullBow : XRBaseInteractable
 
     public float pullAmount { get; private set; } = 0.0f;
 
-    private LineRenderer _lineRenderer;
+    [SerializeField] private LineRenderer _lineRenderer;
     private IXRSelectInteractor pullingInteractor = null;
 
     protected override void Awake()
     {
         base.Awake();
-        _lineRenderer = GetComponent<LineRenderer>();
     }
 
     public void SetPullInteractor(SelectEnterEventArgs args)
