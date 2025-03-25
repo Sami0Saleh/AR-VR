@@ -29,14 +29,16 @@ public class RicochetArrow : MonoBehaviour
     private void Release(float value)
     {
         PullBow.PullActionReleased -= Release;
-        transform.parent = null;
+        gameObject.transform.parent = null;
         _inAir = true;
         SetPhysics(true);
 
         Vector3 force = transform.forward * value * speed;
-        _rigidBody.velocity = force;
+        _rigidBody.velocity = force; // Ensure velocity is applied
+        _rigidBody.angularVelocity = Vector3.zero; // Reset unwanted rotation
 
         StartCoroutine(RotateWithVelocity());
+
         _lastPosition = tip.position;
     }
 

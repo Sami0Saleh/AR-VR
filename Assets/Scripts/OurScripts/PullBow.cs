@@ -63,7 +63,7 @@ public class PullBow : XRBaseInteractable
 
         targetDirection.Normalize();
         float pullValue = Vector3.Dot(pullDirection, targetDirection) / maxLength;
-        return Mathf.Clamp(pullValue, 0.0f, 1.0f);
+        return Mathf.Clamp(pullValue, 0.0f, 2.0f);
 
     }
 

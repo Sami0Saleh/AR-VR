@@ -80,8 +80,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   tip: {fileID: 1769337598482281036}
-  homingStrength: 5
-  homingDuration: 2
+  homingStrength: 20
+  homingDuration: 3
 --- !u!1 &1769337598482281027
 GameObject:
   m_ObjectHideFlags: 0

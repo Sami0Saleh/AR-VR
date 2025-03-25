@@ -1,13 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HomingArrow : MonoBehaviour
 {
     public float speed = 10f;
     public Transform tip;
-    public float homingStrength = 5f;
-    public float homingDuration = 2f;
+    public float homingStrength = 20f; // Increased from 5f
+    public float homingDuration = 3f;  // Increased from 2f
 
     private Rigidbody _rigidBody;
     private bool _inAir = false;
@@ -30,15 +29,15 @@ public class HomingArrow : MonoBehaviour
     private void Release(float value)
     {
         PullBow.PullActionReleased -= Release;
-        transform.parent = null;
+        gameObject.transform.parent = null;
         _inAir = true;
         SetPhysics(true);
 
+        _target = FindClosestTarget(); // Assign target when fired
+
         Vector3 force = transform.forward * value * speed;
         _rigidBody.velocity = force;
-
-        _target = FindClosestTarget();
-        _homingTime = 0f;
+        _rigidBody.angularVelocity = Vector3.zero;
 
         StartCoroutine(RotateWithVelocity());
         _lastPosition = tip.position;
@@ -52,9 +51,9 @@ public class HomingArrow : MonoBehaviour
             if (_target != null && _homingTime < homingDuration)
             {
                 Vector3 direction = (_target.position - transform.position).normalized;
-                _rigidBody.velocity = Vector3.Lerp(_rigidBody.velocity, direction * speed, Time.fixedDeltaTime * homingStrength);
+                _rigidBody.velocity = Vector3.Lerp(_rigidBody.velocity, direction * speed, Time.deltaTime * homingStrength);
                 transform.rotation = Quaternion.LookRotation(_rigidBody.velocity, Vector3.up);
-                _homingTime += Time.fixedDeltaTime;
+                _homingTime += Time.deltaTime;
             }
             else if (_rigidBody.velocity.sqrMagnitude > 0.1f)
             {
@@ -94,7 +93,7 @@ public class HomingArrow : MonoBehaviour
 
     private Transform FindClosestTarget()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 10f);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 40f); // Increased from 10f
         Transform closestTarget = null;
         float closestDistance = Mathf.Infinity;
 
@@ -110,6 +109,12 @@ public class HomingArrow : MonoBehaviour
                 }
             }
         }
+
+        if (closestTarget != null)
+            Debug.Log("Target Acquired: " + closestTarget.name);
+        else
+            Debug.Log("No Target Found");
+
         return closestTarget;
     }
 
