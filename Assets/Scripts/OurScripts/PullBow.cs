@@ -46,6 +46,8 @@ public class PullBow : XRBaseInteractable
             {
                 Vector3 pullPosition = pullingInteractor.transform.position;
                 pullAmount = CalculatePull(pullPosition);
+
+                UpdateString();
             }
         }
     }
